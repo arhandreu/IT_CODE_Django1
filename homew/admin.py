@@ -1,3 +1,5 @@
 from django.contrib import admin
+from homew import models
 
-# Register your models here.
+admin.site.register(models.Furniture)
+admin.site.register(models.Client)
