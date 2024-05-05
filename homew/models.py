@@ -2,9 +2,13 @@ from django.db import models
 
 
 class Furniture(models.Model):
+    objects = models.Manager()
     name = models.CharField('Название', max_length=25)
     created_at = models.DateField('Дата создания', auto_now_add=True)
     price = models.DecimalField('Цена', max_digits=5, decimal_places=2)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='Категория',
+                                 blank=True, null=True)
+    image = models.ImageField('Фотография мебели', upload_to='photos/%Y/%m/%d/', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Мебель'
@@ -18,9 +22,10 @@ class Client(models.Model):
     PRIVILEGE = {
         "VIP": "VIP",
         "AVG": "Average",
-        "MIN": "Minimun",
+        "MIN": "Minimum",
     }
 
+    objects = models.Manager()
     firstname = models.CharField('Имя', max_length=25)
     lastname = models.CharField('Фамилия', max_length=25)
     credit_number = models.IntegerField()
@@ -34,3 +39,14 @@ class Client(models.Model):
         return f"{self.firstname} {self.lastname} ({self.privilege})"
 
 
+class Category(models.Model):
+    objects = models.Manager()
+    name = models.CharField('Название категории', max_length=100, db_index=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+        ordering = ['name',]

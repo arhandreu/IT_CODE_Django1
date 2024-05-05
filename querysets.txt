@@ -1,0 +1,126 @@
+
+
+1. models.Category.objects.all()
+
+<QuerySet [<Category: Кровати>, <Category: Столы>, <Category: Стулья>]>
+_____________________________________________________________________________
+
+2. models.Category.objects.first()
+
+<Category: Кровати>
+____________________________________________________________________________
+
+3. models.Category.objects.last()
+
+<Category: Стулья>
+____________________________________________________________________________
+
+4. models.Category.objects.get(id=2)
+
+<Category: Столы>
+______________________________________________________________________________
+
+5. models.Client.objects.count()
+
+3
+_____________________________________________________________________________
+
+6. models.Client.objects.filter(firstname="Андрей")
+
+<QuerySet [<Client: Андрей Печенкин (VIP)>]>
+____________________________________________________________________________
+
+7. models.Client.objects.filter(firstname="Андрей", lastname="Печенкин")
+
+<QuerySet [<Client: Андрей Печенкин (VIP)>]>
+_____________________________________________________________________________
+
+8. models.Furniture.objects.order_by('price')
+
+<QuerySet [<Furniture: Стул деревенский>, <Furniture: Стол раздвижной>, <Furniture: Кровать полуторная>]>
+____________________________________________________________________________
+
+9. models.Furniture.objects.order_by('price').values('price')
+
+<QuerySet [{'price': Decimal('15.00')}, {'price': Decimal('100.00')}, {'price': Decimal('123.15')}]>
+____________________________________________________________________________________________________
+
+10. models.Furniture.objects.exclude(price__lt=100)
+
+<QuerySet [<Furniture: Кровать полуторная>, <Furniture: Стол раздвижной>]>
+__________________________________________________________________________
+
+11. models.Furniture.objects.filter(price__gte=100)
+
+<QuerySet [<Furniture: Кровать полуторная>, <Furniture: Стол раздвижной>]>
+_____________________________________________________________________________
+
+12. models.Category.objects.reverse()[:2]
+
+<QuerySet [<Category: Стулья>, <Category: Столы>]>
+_______________________________________________________________
+
+13. models.Furniture.objects.filter(name__startswith='Ст')
+
+<QuerySet [<Furniture: Стул деревенский>, <Furniture: Стол раздвижной>]>
+_________________________________________________________________________
+
+14. models.Furniture.objects.aggregate(Avg('price'))
+
+{'price__avg': Decimal('79.3833333333333')}
+_________________________________________________________________________
+
+15.  a = models.Furniture.objects.annotate(num_furniture = Count('category'))
+
+a[0].num_furniture ----------------------> 1
+_____________________________________________________________________________
+
+16. models.Category.objects.values_list("name", flat=True)
+
+<QuerySet ['Кровати', 'Столы', 'Стулья']>
+______________________________________________________________________________
+
+17. models.Category.objects.values_list("name", "id",  named=True)
+
+<QuerySet [Row(name='Кровати', id=3), Row(name='Столы', id=2), Row(name='Стулья', id=1)]>
+________________________________________________________________________________
+
+18. models.Furniture.objects.dates('created_at', 'week')
+
+<QuerySet [datetime.date(2024, 4, 29)]>
+________________________________________________________________________________
+
+19. models.Furniture.objects.values("created_at").latest("created_at")
+
+{'created_at': datetime.date(2024, 5, 5)}
+___________________________________________________________________________________
+
+20. models.Furniture.objects.filter(name__exact="Стол")
+
+<QuerySet []>
+_______________________________________________________________________________________
+
+21. models.Furniture.objects.filter(name__contains="Стол")
+
+<QuerySet [<Furniture: Стол раздвижной>]>
+________________________________________________________________________________________
+
+22. models.Furniture.objects.filter(id__range=(3, 10))
+
+<QuerySet [<Furniture: Стол раздвижной>]>
+______________________________________________________________________________________
+
+23.  models.Furniture.objects.filter(created_at__year=2025)
+
+<QuerySet []>
+_____________________________________________________________________________________
+
+24. models.Client.objects.filter(lastname__regex=r"^П[а-я]{7}$")
+
+<QuerySet [<Client: Андрей Печенкин (VIP)>]>
+____________________________________________________________________
+
+25. models.Category.objects.create(name = "Диваны")
+
+<Category: Диваны>
+_________________________________________________________________________________
