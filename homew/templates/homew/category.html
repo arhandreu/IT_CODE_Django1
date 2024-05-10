@@ -5,7 +5,7 @@
             <ul class="list-group">
                 {% for category in categories %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a href="{{ category.get_absolute_url }}"> {{ category }} </a>
+                    <a href="{% url 'category' category.pk %}"> {{ category }} </a>
                     <span class="badge text-bg-primary rounded-pill">{{ category.num_furniture }}</span>
                 </li>
                 {% endfor %}
@@ -15,14 +15,12 @@
 
 {% block content %}
     <div class="col-md-9">
-            <h1> {{ title }} </h1>
+            <h1> {{ category }} </h1>
             <div class="container text-left mt-3">
-                {%for item in furniture%}
+                {% for item in furniture %}
                 <div class="card mb-3" style="max-width: 1200px;">
                     <div class="row g-0">
-                        <div class="card-header">
-                            <a href="{{ item.category.get_absolute_url }}"> {{ item.category }} </a>
-                        </div>
+<!--                        <div class="card-header">{{ item.category }}</div>-->
                         <div class="col-md-3 text-center">
                             {% if item.image %}
                             <img src="{{ item.image.url }}" class="img-fluid rounded-start" height="200" width="200"

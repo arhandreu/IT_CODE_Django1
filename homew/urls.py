@@ -1,6 +1,7 @@
 from django.urls import path
-from homew.views import date_now
+from homew.views import *
 
 urlpatterns = [
-    path('', date_now),
+    path('', index, name='home'),
+    path('category/<int:pk>/', get_category, name='category'),
 ]
