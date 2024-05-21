@@ -7,9 +7,12 @@ class Furniture(models.Model):
     name = models.CharField('Название', max_length=25)
     created_at = models.DateField('Дата создания', auto_now_add=True)
     price = models.DecimalField('Цена', max_digits=5, decimal_places=2)
-    category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='Категория',
+    category = models.ForeignKey('Category', on_delete=models.CASCADE,
+                                 verbose_name='Категория',
                                  blank=True, null=True)
-    image = models.ImageField('Фотография мебели', upload_to='photos/%Y/%m/%d/', blank=True, null=True)
+    image = models.ImageField('Фотография мебели',
+                              upload_to='photos/%Y/%m/%d/',
+                              blank=True, null=True)
 
     class Meta:
         verbose_name = 'Мебель'
@@ -42,7 +45,8 @@ class Client(models.Model):
 
 class Category(models.Model):
     objects = models.Manager()
-    name = models.CharField('Название категории', max_length=100, db_index=True)
+    name = models.CharField('Название категории', max_length=100,
+                            db_index=True)
 
     def __str__(self):
         return self.name

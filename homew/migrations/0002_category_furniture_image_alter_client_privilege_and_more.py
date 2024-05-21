@@ -14,8 +14,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(db_index=True, max_length=100, verbose_name='Название категории')),
+                ('id', models.BigAutoField(auto_created=True,
+                                           primary_key=True,
+                                           serialize=False,
+                                           verbose_name='ID')),
+                ('name', models.CharField(db_index=True, max_length=100,
+                                          verbose_name='Название категории')),
             ],
             options={
                 'verbose_name': 'Категория',
@@ -26,16 +30,24 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='furniture',
             name='image',
-            field=models.ImageField(blank=True, null=True, upload_to='photos/%Y/%m/%d/', verbose_name='Фотография мебели'),
+            field=models.ImageField(blank=True, null=True,
+                                    upload_to='photos/%Y/%m/%d/',
+                                    verbose_name='Фотография мебели'),
         ),
         migrations.AlterField(
             model_name='client',
             name='privilege',
-            field=models.CharField(choices=[('VIP', 'VIP'), ('AVG', 'Average'), ('MIN', 'Minimum')], max_length=3),
+            field=models.CharField(choices=[('VIP', 'VIP'),
+                                            ('AVG', 'Average'),
+                                            ('MIN', 'Minimum')],
+                                   max_length=3),
         ),
         migrations.AddField(
             model_name='furniture',
             name='category',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='homew.category', verbose_name='Категория'),
+            field=models.ForeignKey(blank=True, null=True,
+                                    on_delete=django.db.models.deletion.CASCADE,
+                                    to='homew.category',
+                                    verbose_name='Категория'),
         ),
     ]

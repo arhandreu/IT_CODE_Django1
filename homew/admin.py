@@ -26,5 +26,3 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Furniture, FurnitureAdmin)
 admin.site.register(Client, ClientAdmin)
 admin.site.register(Category, CategoryAdmin)
-
-

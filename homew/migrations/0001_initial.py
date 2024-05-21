@@ -14,11 +14,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Client',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('firstname', models.CharField(max_length=25, verbose_name='Имя')),
-                ('lastname', models.CharField(max_length=25, verbose_name='Фамилия')),
+                ('id', models.BigAutoField(
+                    auto_created=True, primary_key=True,
+                    serialize=False, verbose_name='ID')),
+                ('firstname', models.CharField(max_length=25,
+                                               verbose_name='Имя')),
+                ('lastname', models.CharField(max_length=25,
+                                              verbose_name='Фамилия')),
                 ('credit_number', models.IntegerField()),
-                ('privilege', models.CharField(choices=[('VIP', 'VIP'), ('AVG', 'Average'), ('MIN', 'Minimun')], max_length=3)),
+                ('privilege', models.CharField(
+                    choices=[('VIP', 'VIP'), ('AVG', 'Average'),
+                             ('MIN', 'Minimun')],
+                    max_length=3)),
             ],
             options={
                 'verbose_name': 'Клиент',
@@ -28,10 +35,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Furniture',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=25, verbose_name='Название')),
-                ('created_at', models.DateField(auto_now_add=True, verbose_name='Дата создания')),
-                ('price', models.DecimalField(decimal_places=2, max_digits=5, verbose_name='Цена')),
+                ('id', models.BigAutoField(auto_created=True,
+                                           primary_key=True,
+                                           serialize=False,
+                                           verbose_name='ID')),
+                ('name', models.CharField(max_length=25,
+                                          verbose_name='Название')),
+                ('created_at', models.DateField(auto_now_add=True,
+                                                verbose_name='Дата создания')),
+                ('price', models.DecimalField(decimal_places=2,
+                                              max_digits=5,
+                                              verbose_name='Цена')),
             ],
             options={
                 'verbose_name': 'Мебель',
