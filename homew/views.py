@@ -1,13 +1,14 @@
 from django.db.models import Count
-from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, DetailView, RedirectView
+from django.views.generic import (TemplateView, ListView, DetailView,
+                                  RedirectView)
 
 from .models import Furniture, Category
 
 
 # def index(request):
 #     list_furniture = Furniture.objects.all()
-#     list_categories = Category.objects.annotate(num_furniture=Count('furniture'))
+#     list_categories = Category.objects.annotate(
+#     num_furniture=Count('furniture'))
 #     context = {"furniture": list_furniture,
 #                "title": "Список мебели",
 #                "categories": list_categories, }
@@ -23,7 +24,8 @@ class HomePage(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        list_categories = Category.objects.annotate(num_furniture=Count('furniture'))
+        list_categories = Category.objects.annotate(
+            num_furniture=Count('furniture'))
 
         context["categories"] = list_categories
         context["title"] = "Список мебели"
@@ -33,7 +35,8 @@ class HomePage(ListView):
 
 # def get_category(request, pk):
 #     list_furniture = Furniture.objects.filter(category=pk)
-#     list_categories = Category.objects.annotate(num_furniture=Count('furniture'))
+#     list_categories = Category.objects.annotate(
+#     num_furniture=Count('furniture'))
 #     category = Category.objects.get(pk=pk)
 #     context = {"furniture": list_furniture,
 #                "title": "Список мебели",
