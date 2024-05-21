@@ -55,7 +55,8 @@ class DetailCategory(DetailView):
         context = super().get_context_data(**kwargs)
 
         list_furniture = Furniture.objects.filter(category=context['category'])
-        list_categories = Category.objects.annotate(num_furniture=Count('furniture'))
+        list_categories = Category.objects.annotate(
+            num_furniture=Count('furniture'))
 
         context["furniture"] = list_furniture
         context["title"] = "Список мебели"
