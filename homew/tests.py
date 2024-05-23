@@ -39,7 +39,7 @@ class Tests(TestCase):
 
 class TestClientAPI(TestCase):
     def setUp(self):
-        client = Client()
+        self.client = Client()
         self.api_client_1 = models.Client.objects.create(
             firstname='Александр',
             lastname='Кошевой',
@@ -77,9 +77,9 @@ class TestClientAPI(TestCase):
                        'credit_number': 898484846,
                        'privilege': 'AVG',
                        }
-        response = self.client.put(f'/clientMV/{self.api_client_1.pk}/',
-                                   data=data_client,
-                                   content_type='application/json')
+        self.client.put(f'/clientMV/{self.api_client_1.pk}/',
+                        data=data_client,
+                        content_type='application/json')
         self.assertDictEqual(models.Client.objects.filter(
             pk=self.api_client_1.pk)
                              .values('firstname', 'lastname',
@@ -101,4 +101,3 @@ class TestClientAPI(TestCase):
         self.assertEqual(response.status_code, 204)
         self.assertEqual(len(models.Client.objects.filter(
             pk=self.api_client_2.pk)), 0)
-

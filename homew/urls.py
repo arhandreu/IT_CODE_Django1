@@ -1,5 +1,6 @@
 from django.urls import path
-from homew.views import HomePage, DetailCategory, SearchMagazine, About, ClientAPIView, ClientModelView
+from homew.views import (HomePage, DetailCategory, SearchMagazine,
+                         About, ClientAPIView, ClientModelView)
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()

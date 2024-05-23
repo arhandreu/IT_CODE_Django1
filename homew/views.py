@@ -103,4 +103,3 @@ class ClientAPIView(APIView):
 class ClientModelView(ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = serializers.Client
-
