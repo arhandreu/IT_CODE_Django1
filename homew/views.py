@@ -1,9 +1,13 @@
 from django.db.models import Count
 from django.views.generic import (TemplateView, ListView, DetailView,
                                   RedirectView)
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 
-from .models import Furniture, Category
-
+from . import filters
+from .models import Furniture, Category, Client
+from . import serializers
 
 # def index(request):
 #     list_furniture = Furniture.objects.all()
@@ -21,6 +25,12 @@ class HomePage(ListView):
     model = Furniture
     context_object_name = 'furniture'
 
+    def get_filters(self):
+        return filters.Furniture(self.request.GET)
+
+    def get_queryset(self):
+        return self.get_filters().qs
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -29,6 +39,7 @@ class HomePage(ListView):
 
         context["categories"] = list_categories
         context["title"] = "Список мебели"
+        context['filters'] = self.get_filters()
 
         return context
 
@@ -72,3 +83,24 @@ class SearchMagazine(RedirectView):
 
 class About(TemplateView):
     template_name = 'homew/about.html'
+
+
+class ClientAPIView(APIView):
+    def get(self, request):
+        qs = Client.objects.all()
+        serializer = serializers.Client(qs, many=True)
+
+        return Response(data=serializer.data)
+
+    def post(self, request):
+        serializer = serializers.Client(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response({'message': 'Yea'})
+
+
+class ClientModelView(ModelViewSet):
+    queryset = Client.objects.all()
+    serializer_class = serializers.Client
+
