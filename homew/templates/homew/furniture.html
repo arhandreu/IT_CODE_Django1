@@ -1,29 +1,15 @@
 {% extends 'base.html' %}
 
-{% block sidebar %}
-    <div class="col-md-3 mt-5">
-            <ul class="list-group">
-                {% for category in categories %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a href="{% url 'category' category.pk %}"> {{ category }} </a>
-                    <span class="badge text-bg-primary rounded-pill">{{ category.num_furniture }}</span>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-{% endblock %}
-
 {% block content %}
     <div class="col-md-9">
-            <h1> {{ category }} </h1>
+            <h1> {{ furniture }} </h1>
             <div class="container text-left mt-3">
-                {% for item in furniture %}
                 <div class="card mb-3" style="max-width: 1200px;">
                     <div class="row g-0">
 <!--                        <div class="card-header">{{ item.category }}</div>-->
                         <div class="col-md-3 text-center">
-                            {% if item.image %}
-                            <img src="{{ item.image.url }}" class="img-fluid rounded-start" height="200" width="200"
+                            {% if furniture.image %}
+                            <img src="{{ furniture.image.url }}" class="img-fluid rounded-start" height="200" width="200"
                                  alt="...">
                             {% else %}
                             <img src="https://dummyimage.com/200x200/fff/aaa" class="img-fluid rounded-start"
@@ -33,15 +19,16 @@
                         </div>
                         <div class="col-md-9">
                             <div class="card-body">
-                                <h5 class="card-title"><a href="{{ item.get_absolute_url }}"> {{ item }} </a></h5>
-                                <p class="card-text">{{ item.description|linebreaks|truncatechars:100 }}</p>
+<!--                                <h5 class="card-title">{{ furniture }}</h5>-->
+                                <p class="card-text">{{ furniture.description|linebreaks }}</p>
                                 <p class="card-text"><small class="text-body-secondary">Дата создания
-                                    {{ item.created_at|date:"Y-m-d" }}</small></p>
+                                    {{ furniture.created_at|date:"Y-m-d" }}</small></p>
                             </div>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
+
             </div>
         </div>
 {% endblock %}
+

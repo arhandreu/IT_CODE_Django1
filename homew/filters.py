@@ -8,7 +8,9 @@ class Furniture(django_filters.FilterSet):
     created_at = django_filters.DateFilter(label='Создана после',
                                            lookup_expr='gt')
     price = django_filters.RangeFilter(label='Цена от и до')
+    description = django_filters.CharFilter(label='Описание мебели',
+                                            lookup_expr='icontains')
 
     class Meta:
         model = models.Furniture
-        exclude = ('image', )
+        exclude = ('image', 'slug', )
